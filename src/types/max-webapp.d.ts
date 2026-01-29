@@ -5,6 +5,7 @@ declare global {
 
   interface MaxWebAppHapticFeedback {
     selectionChanged: () => void;
+    notificationOccurred?: (type: 'success' | 'error' | 'warning') => void;
   }
 
   interface MaxWebApp {

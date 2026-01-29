@@ -1,3 +1,17 @@
+
+import { useEffect } from 'react';
+import PulseScreen from './screens/PulseScreen';
+import { getWebApp, isInMax } from './lib/max';
+
+const App = () => {
+  useEffect(() => {
+    if (isInMax()) {
+      getWebApp()?.ready();
+    }
+  }, []);
+
+  return <PulseScreen />;
+=======
 import { useMemo, useState, useEffect } from 'react';
 import { Panel, Container, Grid, Typography, Button } from '@maxhub/max-ui';
 
