@@ -30,12 +30,14 @@ npm run build
 ## Примеры диплинков
 
 ```
-https://max.ru/<botName>?startapp=daily_today
 https://max.ru/<botName>?startapp=retro_sprint12
-https://max.ru/<botName>?startapp=incident_INC-481
+https://max.ru/<botName>?startapp=daily_standup
+https://max.ru/<botName>?startapp=incident_42
+
 ```
 
 ## Где читаем start_param и вызываем ready()
 
-- `start_param` читается из `window.WebApp.initDataUnsafe.start_param` в `src/screens/PulseScreen.tsx`.
-- `window.WebApp.ready()` вызывается в `src/App.tsx` при монтировании приложения.
+- `start_param` читается из `window.WebApp.initDataUnsafe.start_param` в `src/App.tsx`.
+- `window.WebApp.ready()` вызывается в `useEffect` при монтировании `App`.
+
