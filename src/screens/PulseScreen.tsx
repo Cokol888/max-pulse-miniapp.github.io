@@ -9,6 +9,8 @@ import {
   hapticSelect,
   openModeLink,
   setClosingProtection,
+  shareText,
+
 } from '../lib/max';
 
 const moodOptions: Array<{ value: Mood; label: string; emoji: string }> = [
@@ -45,6 +47,11 @@ const buildId = (): string => {
     return crypto.randomUUID();
   }
   return `pulse-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+};
+
+const buildShareText = (entry: PulseEntry, label: string): string => {
+  const moodEmoji = entry.mood === 'good' ? '🙂' : entry.mood === 'ok' ? '😐' : '😫';
+  return `Pulse: ${moodEmoji} ${entry.mood} — “${getPreview(entry.comment)}” (${label})`;
 };
 
 const PulseScreen = () => {
@@ -120,6 +127,15 @@ const PulseScreen = () => {
     hapticResult('success');
   };
 
+  const handleShareLatest = async () => {
+    const latest = entries[0];
+    if (!latest) {
+      return;
+    }
+    const result = await shareText(buildShareText(latest, context.label));
+    setMessage(result === 'shared' ? 'Готово! Поделились.' : 'Не удалось поделиться.');
+  };
+
   const latestEntry = entries[0];
   const recentEntries = entries.slice(0, 5);
 
@@ -160,6 +176,9 @@ const PulseScreen = () => {
 
           <Grid>
             <Button onClick={handleSubmit}>Отправить</Button>
+            {latestEntry && (
+              <Button onClick={handleShareLatest}>Поделиться последним</Button>
+            )}
             {message && <Typography.Body variant="small">{message}</Typography.Body>}
           </Grid>
 

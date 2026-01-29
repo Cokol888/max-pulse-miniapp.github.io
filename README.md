@@ -16,6 +16,16 @@ npm run dev
 
 - `VITE_MAX_BOT_NAME` — имя бота для диплинков. По умолчанию используется `MyPulseBot`.
 
+
+## Реализованные Bridge-фичи
+
+- BackButton (возврат на экран Pulse).
+- Share: shareContent/shareMaxContent + fallback на `navigator.share`/clipboard.
+- Request contact (получение телефона через события Bridge).
+- ScreenCapture (запрет скриншотов).
+- Управление яркостью (requestScreenMaxBrightness/restoreScreenBrightness).
+
+
 ## Деплой статики (GitHub Pages)
 
 1. В `vite.config.ts` можно задать `base: '/<repo>/'`.
@@ -30,14 +40,20 @@ npm run build
 ## Примеры диплинков
 
 ```
+https://max.ru/<botName>?startapp=daily_today
 https://max.ru/<botName>?startapp=retro_sprint12
-https://max.ru/<botName>?startapp=daily_standup
-https://max.ru/<botName>?startapp=incident_42
-
+https://max.ru/<botName>?startapp=incident_INC-481
 ```
 
 ## Где читаем start_param и вызываем ready()
 
+- `start_param` читается из `window.WebApp.initDataUnsafe.start_param` в `src/screens/PulseScreen.tsx`.
+- `window.WebApp.ready()` вызывается в `src/App.tsx` при монтировании приложения.
+
+## Тестирование в браузере
+
+- Можно переключать режимы через query: `?startapp=daily_today`.
+- Некоторые функции (BackButton, share, requestContact, ScreenCapture, brightness) будут no-op вне MAX.
 - `start_param` читается из `window.WebApp.initDataUnsafe.start_param` в `src/App.tsx`.
 - `window.WebApp.ready()` вызывается в `useEffect` при монтировании `App`.
 
