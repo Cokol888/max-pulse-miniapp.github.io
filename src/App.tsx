@@ -55,6 +55,7 @@ const App = () => {
       {screen === 'pulse' && <PulseScreen />}
       {screen === 'history' && <HistoryScreen />}
       {screen === 'settings' && <SettingsScreen />}
+
     </Panel>
   );
 };

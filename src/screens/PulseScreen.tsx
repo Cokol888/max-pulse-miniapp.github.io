@@ -10,6 +10,7 @@ import {
   openModeLink,
   setClosingProtection,
   shareText,
+
 } from '../lib/max';
 
 const moodOptions: Array<{ value: Mood; label: string; emoji: string }> = [

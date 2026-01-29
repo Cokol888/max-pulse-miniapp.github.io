@@ -1,3 +1,4 @@
+
 import { waitForEvent } from './bridgeEvents';
 
 const BOT_NAME = import.meta.env.VITE_MAX_BOT_NAME ?? 'MyPulseBot';

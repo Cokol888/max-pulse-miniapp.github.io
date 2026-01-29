@@ -16,6 +16,7 @@ npm run dev
 
 - `VITE_MAX_BOT_NAME` — имя бота для диплинков. По умолчанию используется `MyPulseBot`.
 
+
 ## Реализованные Bridge-фичи
 
 - BackButton (возврат на экран Pulse).
@@ -23,6 +24,7 @@ npm run dev
 - Request contact (получение телефона через события Bridge).
 - ScreenCapture (запрет скриншотов).
 - Управление яркостью (requestScreenMaxBrightness/restoreScreenBrightness).
+
 
 ## Деплой статики (GitHub Pages)
 
@@ -52,3 +54,6 @@ https://max.ru/<botName>?startapp=incident_INC-481
 
 - Можно переключать режимы через query: `?startapp=daily_today`.
 - Некоторые функции (BackButton, share, requestContact, ScreenCapture, brightness) будут no-op вне MAX.
+- `start_param` читается из `window.WebApp.initDataUnsafe.start_param` в `src/App.tsx`.
+- `window.WebApp.ready()` вызывается в `useEffect` при монтировании `App`.
+
