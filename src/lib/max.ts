@@ -22,8 +22,7 @@ export const isInMax = (): boolean => {
   return webApp.isMock !== true;
 };
 
-export const getStartParam = (): string | undefined =>
-  getWebApp()?.initDataUnsafe?.start_param;
+export const getStartParam = (): string | undefined => getWebApp()?.initDataUnsafe?.start_param;
 
 export const hapticSelect = (): void => {
   const webApp = getWebApp();
