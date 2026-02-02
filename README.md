@@ -1,9 +1,9 @@
 # Pulse / Пульс команды (MAX mini-app)
 
-
 [![CI](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml)
-Мини-апп «Pulse / Пульс команды» для мессенджера MAX. Каркас без бэкенда: Vite + React 18 + TypeScript + локальный сервер валидации initData (опционально).
+
+Мини-апп «Pulse / Пульс команды» для мессенджера MAX. Каркас без бэкенда: Vite + React 18 + TypeScript + локальный сервер валидации initData (опционально) и компаньон-бот для демо.
 
 ## Локальный запуск
 
@@ -12,11 +12,28 @@ npm install
 cp server/.env.example server/.env
 # заполните BOT_TOKEN в server/.env
 # опционально задайте VITE_VALIDATION_URL (см. ниже)
+
+# фронт + сервер
 npm run dev
+
+# фронт + сервер + бот
+npm run dev:all
 ```
 
 В dev-режиме, если `window.WebApp` отсутствует, используется мок (platform = `web`, version = `dev`).
 Параметр `start_param` берётся из query-параметра `?startapp=...`.
+
+## Бот-компаньон
+
+В папке `/bot` лежит простой бот для демо. Запуск:
+
+```bash
+cd bot
+npm install
+cp .env.example .env
+# заполните BOT_TOKEN и BOT_NAME
+npm run dev
+```
 
 ## Почему BOT_TOKEN не должен попадать во фронт
 
@@ -31,7 +48,6 @@ npm run dev
 - `VITE_MAX_BOT_NAME` — имя бота для диплинков. По умолчанию используется `MyPulseBot`.
 - `VITE_VALIDATION_URL` — базовый URL сервера валидации (например `http://localhost:4000`). Если не задан, валидация пропускается.
 - `BOT_TOKEN` — в `server/.env`, используется только сервером.
-
 
 ## Реализованные Bridge-фичи
 
@@ -93,6 +109,21 @@ https://max.ru/<botName>?startapp=retro_sprint12
 https://max.ru/<botName>?startapp=incident_INC-481
 ```
 
+## Smoke test в MAX
+
+1. На платформе партнёров привяжите мини-приложение к боту (URL должен быть https).
+2. Откройте чат с ботом и нажмите «Открыть Pulse».
+3. Проверьте режимы через диплинки:
+   - https://max.ru/<botName>?startapp=retro_sprint12
+   - https://max.ru/<botName>?startapp=incident_INC-481
+4. Убедитесь, что в мини-аппе контекст подтягивается из `start_param` и меняет UI.
+5. Если тест в группе: назначьте бота админом (иначе события могут не приходить).
+
+## Продакшн-хук (подсказка)
+
+- Dev: используется long polling (`bot.start()`), удобно для разработки.
+- Prod: лучше webhook через `/subscriptions` и HTTPS endpoint (параметры: `url`, `update_types`, `secret`).
+
 ## Где читаем start_param и вызываем ready()
 
 - `start_param` читается из `window.WebApp.initDataUnsafe.start_param` в `src/screens/PulseScreen.tsx`.
@@ -110,4 +141,3 @@ https://max.ru/<botName>?startapp=incident_INC-481
 - `npm run typecheck` — TypeScript
 - `npm run test` — Vitest
 - `npm run build` — сборка Vite
-
