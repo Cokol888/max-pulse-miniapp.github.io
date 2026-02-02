@@ -47,6 +47,7 @@ declare global {
     ready: () => void;
     platform: string;
     version: string;
+    initData?: string;
     initDataUnsafe: MaxWebAppInitDataUnsafe;
     enableClosingConfirmation: () => void;
     disableClosingConfirmation: () => void;

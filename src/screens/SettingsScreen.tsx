@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react';
 import { Panel, Container, Grid, Typography, Button } from '@maxhub/max-ui';
-import { getWebApp, isInMax, requestContact } from '../lib/max';
+import { getWebApp, isInMax, openLink, requestContact } from '../lib/max';
+import { validateInitData, type ValidationState } from '../lib/validation';
 
 const SettingsScreen = () => {
   const webApp = getWebApp();
   const [contact, setContact] = useState<string>('');
   const [status, setStatus] = useState<string>('');
+  const [validation, setValidation] = useState<ValidationState | null>(null);
   const [screenCaptureEnabled, setScreenCaptureEnabled] = useState<boolean>(
     webApp?.ScreenCapture?.isScreenCaptureEnabled ?? false,
   );
@@ -22,6 +24,12 @@ const SettingsScreen = () => {
     } else {
       setStatus('Телефон не получен.');
     }
+  };
+
+  const handleValidate = async () => {
+    setStatus('');
+    const result = await validateInitData();
+    setValidation(result);
   };
 
   const toggleScreenCapture = () => {
@@ -78,6 +86,40 @@ const SettingsScreen = () => {
           </Grid>
 
           <Grid>
+            <Typography.Label variant="small-strong">Security / Validation</Typography.Label>
+            <Button onClick={handleValidate}>Проверить подлинность</Button>
+            {validation && validation.skipped && (
+              <Typography.Body variant="small">
+                Skipped: {validation.reason ?? 'not in MAX'}
+              </Typography.Body>
+            )}
+            {validation && validation.ok && (
+              <Typography.Body variant="small">
+                ✅ Validated: user=
+                {String(
+                  (validation.data?.user as { id?: number; username?: string })?.id ?? '-',
+                )}{' '}
+                {String((validation.data?.user as { username?: string })?.username ?? '')}{' '}
+                start_param=
+                {validation.data?.start_param ?? '-'}
+              </Typography.Body>
+            )}
+            {validation && !validation.ok && !validation.skipped && (
+              <Typography.Body variant="small">
+                ❌ Not validated: {validation.reason}
+              </Typography.Body>
+            )}
+          </Grid>
+
+          <Grid>
+            <Typography.Label variant="small-strong">Документы</Typography.Label>
+            <Grid>
+              <Button onClick={() => openLink('/privacy.html')}>Политика конфиденциальности</Button>
+              <Button onClick={() => openLink('/terms.html')}>Пользовательское соглашение</Button>
+            </Grid>
+          </Grid>
+
+          <Grid>
             <Typography.Label variant="small-strong">Запретить скриншоты</Typography.Label>
             <Typography.Body variant="small">
               Статус: {screenCaptureEnabled ? 'включен (запрет активен)' : 'выключен'}
@@ -90,9 +132,7 @@ const SettingsScreen = () => {
           <Grid>
             <Typography.Label variant="small-strong">Focus mode</Typography.Label>
             <Grid>
-              <Button onClick={handleMaxBrightness}>
-                Яркость на максимум (30 сек)
-              </Button>
+              <Button onClick={handleMaxBrightness}>Яркость на максимум (30 сек)</Button>
               <Button onClick={handleRestoreBrightness}>Вернуть яркость</Button>
             </Grid>
           </Grid>

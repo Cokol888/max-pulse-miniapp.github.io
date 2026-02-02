@@ -10,7 +10,6 @@ import {
   openModeLink,
   setClosingProtection,
   shareText,
-
 } from '../lib/max';
 
 const moodOptions: Array<{ value: Mood; label: string; emoji: string }> = [
@@ -69,10 +68,7 @@ const PulseScreen = () => {
   }, []);
 
   const context = useMemo(() => parseStartParam(startParam), [startParam]);
-  const storageKey = useMemo(
-    () => `pulse:${context.raw || 'default'}`,
-    [context.raw],
-  );
+  const storageKey = useMemo(() => `pulse:${context.raw || 'default'}`, [context.raw]);
 
   useEffect(() => {
     setEntries(loadEntries(storageKey));
@@ -153,10 +149,7 @@ const PulseScreen = () => {
             <Typography.Label variant="small-strong">Настроение команды</Typography.Label>
             <Grid>
               {moodOptions.map((option) => (
-                <Button
-                  key={option.value}
-                  onClick={() => handleMoodSelect(option.value)}
-                >
+                <Button key={option.value} onClick={() => handleMoodSelect(option.value)}>
                   {option.emoji} {option.label}
                   {mood === option.value ? ' ✓' : ''}
                 </Button>
@@ -176,9 +169,7 @@ const PulseScreen = () => {
 
           <Grid>
             <Button onClick={handleSubmit}>Отправить</Button>
-            {latestEntry && (
-              <Button onClick={handleShareLatest}>Поделиться последним</Button>
-            )}
+            {latestEntry && <Button onClick={handleShareLatest}>Поделиться последним</Button>}
             {message && <Typography.Body variant="small">{message}</Typography.Body>}
           </Grid>
 

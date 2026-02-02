@@ -1,4 +1,3 @@
-
 import { waitForEvent } from './bridgeEvents';
 
 const BOT_NAME = import.meta.env.VITE_MAX_BOT_NAME ?? 'MyPulseBot';
@@ -70,6 +69,18 @@ export const openModeLink = (modePayload: string): void => {
   window.dispatchEvent(new PopStateEvent('popstate'));
 };
 
+export const openLink = (path: string): void => {
+  const url = new URL(path, window.location.origin).toString();
+  const webApp = getWebApp();
+
+  if (isInMax() && webApp) {
+    webApp.openMaxLink(url);
+    return;
+  }
+
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
+
 export const shareText = async (text: string, link?: string): Promise<ShareResult> => {
   const safeText = text.slice(0, 200);
   const webApp = getWebApp();
@@ -128,7 +139,10 @@ export const requestContact = async (): Promise<ContactResult | null> => {
     const result = await waitForEvent<ContactResult>(
       'contact_requested',
       (data): data is ContactResult =>
-        typeof data === 'object' && data !== null && 'phone' in data && typeof (data as ContactResult).phone === 'string',
+        typeof data === 'object' &&
+        data !== null &&
+        'phone' in data &&
+        typeof (data as ContactResult).phone === 'string',
     );
     return result;
   } catch {

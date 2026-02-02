@@ -34,10 +34,7 @@ const HistoryScreen = () => {
   }, []);
 
   const context = useMemo(() => parseStartParam(startParam), [startParam]);
-  const storageKey = useMemo(
-    () => `pulse:${context.raw || 'default'}`,
-    [context.raw],
-  );
+  const storageKey = useMemo(() => `pulse:${context.raw || 'default'}`, [context.raw]);
 
   useEffect(() => {
     setEntries(loadEntries(storageKey));

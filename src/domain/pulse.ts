@@ -17,7 +17,12 @@ export interface PulseEntry {
   comment: string;
 }
 
-const buildContext = (raw: string, mode: PulseMode, label: string, details?: string): PulseContext => ({
+const buildContext = (
+  raw: string,
+  mode: PulseMode,
+  label: string,
+  details?: string,
+): PulseContext => ({
   raw,
   mode,
   label,
