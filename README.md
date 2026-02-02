@@ -1,8 +1,8 @@
 # Pulse / Пульс команды (MAX mini-app)
 
+
 [![CI](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml)
-
 Мини-апп «Pulse / Пульс команды» для мессенджера MAX. Каркас без бэкенда: Vite + React 18 + TypeScript + локальный сервер валидации initData (опционально).
 
 ## Локальный запуск
@@ -31,6 +31,7 @@ npm run dev
 - `VITE_MAX_BOT_NAME` — имя бота для диплинков. По умолчанию используется `MyPulseBot`.
 - `VITE_VALIDATION_URL` — базовый URL сервера валидации (например `http://localhost:4000`). Если не задан, валидация пропускается.
 - `BOT_TOKEN` — в `server/.env`, используется только сервером.
+
 
 ## Реализованные Bridge-фичи
 
@@ -109,3 +110,4 @@ https://max.ru/<botName>?startapp=incident_INC-481
 - `npm run typecheck` — TypeScript
 - `npm run test` — Vitest
 - `npm run build` — сборка Vite
+
