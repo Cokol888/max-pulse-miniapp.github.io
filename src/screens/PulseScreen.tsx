@@ -136,35 +136,28 @@ const PulseScreen = () => {
   const recentEntries = entries.slice(0, 5);
 
   return (
-    <Panel className="screen-panel">
-      <Container className="screen-container">
-        <Grid className="screen-stack">
-          <div className="screen-header">
-            <Typography.Title variant="large-strong">Pulse</Typography.Title>
-            <Typography.Body variant="medium" className="muted-text">
-              Режим: {context.label}
-              {context.details ? ` — ${context.details}` : ''}
-            </Typography.Body>
-          </div>
+    <Panel>
+      <Container>
+        <Grid>
+          <Typography.Title variant="large-strong">Pulse</Typography.Title>
+          <Typography.Body variant="medium">
+            Режим: {context.label}
+            {context.details ? ` — ${context.details}` : ''}
+          </Typography.Body>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Настроение команды</Typography.Label>
-            <Grid className="button-row">
+            <Grid>
               {moodOptions.map((option) => (
-                <Button
-                  key={option.value}
-                  onClick={() => handleMoodSelect(option.value)}
-                  className={mood === option.value ? 'mood-button is-selected' : 'mood-button'}
-                >
-                  <span className="mood-emoji">{option.emoji}</span>
-                  {option.label}
+                <Button key={option.value} onClick={() => handleMoodSelect(option.value)}>
+                  {option.emoji} {option.label}
                   {mood === option.value ? ' ✓' : ''}
                 </Button>
               ))}
             </Grid>
           </Grid>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Комментарий</Typography.Label>
             <Textarea
               value={comment}
@@ -174,22 +167,16 @@ const PulseScreen = () => {
             />
           </Grid>
 
-          <Grid className="section-card">
-            <Grid className="button-row">
-              <Button onClick={handleSubmit}>Отправить</Button>
-              {latestEntry && <Button onClick={handleShareLatest}>Поделиться последним</Button>}
-            </Grid>
-            {message && (
-              <Typography.Body variant="small" className="message-banner">
-                {message}
-              </Typography.Body>
-            )}
+          <Grid>
+            <Button onClick={handleSubmit}>Отправить</Button>
+            {latestEntry && <Button onClick={handleShareLatest}>Поделиться последним</Button>}
+            {message && <Typography.Body variant="small">{message}</Typography.Body>}
           </Grid>
 
           {latestEntry && (
-            <Grid className="section-card">
+            <Grid>
               <Typography.Label variant="small-strong">Последняя отправка</Typography.Label>
-              <Typography.Body variant="small" className="entry-preview">
+              <Typography.Body variant="small">
                 {formatTimestamp(latestEntry.ts)} — {latestEntry.mood.toUpperCase()} —{' '}
                 {getPreview(latestEntry.comment)}
               </Typography.Body>
@@ -197,22 +184,20 @@ const PulseScreen = () => {
           )}
 
           {recentEntries.length > 0 && (
-            <Grid className="section-card">
+            <Grid>
               <Typography.Label variant="small-strong">История</Typography.Label>
-              <div className="entry-list">
-                {recentEntries.map((entry) => (
-                  <Typography.Body key={entry.id} variant="small" className="entry-preview">
-                    {formatTimestamp(entry.ts)} • {entry.mood.toUpperCase()} •{' '}
-                    {getPreview(entry.comment)}
-                  </Typography.Body>
-                ))}
-              </div>
+              {recentEntries.map((entry) => (
+                <Typography.Body key={entry.id} variant="small">
+                  {formatTimestamp(entry.ts)} • {entry.mood.toUpperCase()} •{' '}
+                  {getPreview(entry.comment)}
+                </Typography.Body>
+              ))}
             </Grid>
           )}
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Открыть режим</Typography.Label>
-            <Grid className="button-row">
+            <Grid>
               <Button onClick={() => openModeLink('daily_today')}>Daily</Button>
               <Button onClick={() => openModeLink('retro_sprint12')}>Retro</Button>
               <Button onClick={() => openModeLink('incident_INC-481')}>Incident</Button>

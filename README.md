@@ -122,7 +122,7 @@ https://max.ru/<botName>?startapp=incident_INC-481
 ## Продакшн-хук (подсказка)
 
 - Dev: используется long polling (`bot.start()`), удобно для разработки.
-- Prod: лучше webhook через `/subscriptions` и HTTPS endpoint (параметры: `url`, `update_types`, `secret`). См. доку по Bot API: https://dev.max.ru.
+- Prod: лучше webhook через `/subscriptions` и HTTPS endpoint (параметры: `url`, `update_types`, `secret`).
 
 ## Где читаем start_param и вызываем ready()
 

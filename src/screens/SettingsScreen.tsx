@@ -12,8 +12,8 @@ const SettingsScreen = () => {
     webApp?.ScreenCapture?.isScreenCaptureEnabled ?? false,
   );
 
-  const userInfo = useMemo(() => webApp?.initDataUnsafe.user, [webApp]);
-  const chatInfo = useMemo(() => webApp?.initDataUnsafe.chat, [webApp]);
+  const userInfo = useMemo(() => webApp?.initDataUnsafe?.user, [webApp]);
+  const chatInfo = useMemo(() => webApp?.initDataUnsafe?.chat, [webApp]);
 
   const handleRequestContact = async () => {
     setStatus('');
@@ -56,17 +56,15 @@ const SettingsScreen = () => {
   };
 
   return (
-    <Panel className="screen-panel">
-      <Container className="screen-container">
-        <Grid className="screen-stack">
-          <div className="screen-header">
-            <Typography.Title variant="large-strong">Настройки</Typography.Title>
-            <Typography.Body variant="small" className="muted-text">
-              Platform: {webApp?.platform ?? 'unknown'} | Version: {webApp?.version ?? 'unknown'}
-            </Typography.Body>
-          </div>
+    <Panel>
+      <Container>
+        <Grid>
+          <Typography.Title variant="large-strong">Настройки</Typography.Title>
+          <Typography.Body variant="small">
+            Platform: {webApp?.platform ?? 'unknown'} | Version: {webApp?.version ?? 'unknown'}
+          </Typography.Body>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Пользователь</Typography.Label>
             <Typography.Body variant="small">
               {userInfo
@@ -75,32 +73,23 @@ const SettingsScreen = () => {
             </Typography.Body>
           </Grid>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Чат</Typography.Label>
             <Typography.Body variant="small">
               {chatInfo ? `id=${chatInfo.id} type=${chatInfo.type ?? '-'}` : 'Нет данных'}
             </Typography.Body>
           </Grid>
 
-          <Grid className="section-card">
-            <Typography.Label variant="small-strong">Контакты</Typography.Label>
-            <Grid className="button-row">
-              <Button onClick={handleRequestContact}>Запросить телефон</Button>
-            </Grid>
-            {contact && (
-              <Typography.Body variant="small" className="message-banner">
-                Телефон: {contact}
-              </Typography.Body>
-            )}
+          <Grid>
+            <Button onClick={handleRequestContact}>Запросить телефон</Button>
+            {contact && <Typography.Body variant="small">Телефон: {contact}</Typography.Body>}
           </Grid>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Security / Validation</Typography.Label>
-            <Grid className="button-row">
-              <Button onClick={handleValidate}>Проверить подлинность</Button>
-            </Grid>
+            <Button onClick={handleValidate}>Проверить подлинность</Button>
             {validation && validation.skipped && (
-              <Typography.Body variant="small" className="muted-text">
+              <Typography.Body variant="small">
                 Skipped: {validation.reason ?? 'not in MAX'}
               </Typography.Body>
             )}
@@ -122,45 +111,39 @@ const SettingsScreen = () => {
             )}
           </Grid>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Документы</Typography.Label>
-            <Grid className="button-row">
+            <Grid>
               <Button onClick={() => openLink('/privacy.html')}>Политика конфиденциальности</Button>
               <Button onClick={() => openLink('/terms.html')}>Пользовательское соглашение</Button>
             </Grid>
           </Grid>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Запретить скриншоты</Typography.Label>
-            <Typography.Body variant="small" className="muted-text">
+            <Typography.Body variant="small">
               Статус: {screenCaptureEnabled ? 'включен (запрет активен)' : 'выключен'}
             </Typography.Body>
-            <Grid className="button-row">
-              <Button onClick={toggleScreenCapture}>
-                {screenCaptureEnabled ? 'Выключить запрет' : 'Включить запрет'}
-              </Button>
-            </Grid>
+            <Button onClick={toggleScreenCapture}>
+              {screenCaptureEnabled ? 'Выключить запрет' : 'Включить запрет'}
+            </Button>
           </Grid>
 
-          <Grid className="section-card">
+          <Grid>
             <Typography.Label variant="small-strong">Focus mode</Typography.Label>
-            <Grid className="button-row">
+            <Grid>
               <Button onClick={handleMaxBrightness}>Яркость на максимум (30 сек)</Button>
               <Button onClick={handleRestoreBrightness}>Вернуть яркость</Button>
             </Grid>
           </Grid>
 
           {!isInMax() && (
-            <Typography.Body variant="small" className="muted-text">
+            <Typography.Body variant="small">
               Некоторые функции доступны только внутри MAX.
             </Typography.Body>
           )}
 
-          {status && (
-            <Typography.Body variant="small" className="message-banner">
-              {status}
-            </Typography.Body>
-          )}
+          {status && <Typography.Body variant="small">{status}</Typography.Body>}
         </Grid>
       </Container>
     </Panel>

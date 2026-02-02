@@ -68,48 +68,32 @@ const HistoryScreen = () => {
   };
 
   return (
-    <Panel className="screen-panel">
-      <Container className="screen-container">
-        <Grid className="screen-stack">
-          <div className="screen-header">
-            <Typography.Title variant="large-strong">История</Typography.Title>
-            <Typography.Body variant="medium" className="muted-text">
-              Контекст: {context.label}
-              {context.details ? ` — ${context.details}` : ''}
-            </Typography.Body>
-            <Typography.Body variant="small" className="muted-text">
-              raw: {context.raw || '(пусто)'}
-            </Typography.Body>
-          </div>
+    <Panel>
+      <Container>
+        <Grid>
+          <Typography.Title variant="large-strong">История</Typography.Title>
+          <Typography.Body variant="medium">
+            Контекст: {context.label}
+            {context.details ? ` — ${context.details}` : ''}
+          </Typography.Body>
+          <Typography.Body variant="small">raw: {context.raw || '(пусто)'}</Typography.Body>
 
-          <Grid className="section-card">
-            <Typography.Label variant="small-strong">Действия</Typography.Label>
-            <Grid className="button-row">
-              <Button onClick={handleExport}>Экспорт JSON</Button>
-              <Button onClick={handleClear}>Очистить историю</Button>
-              {isInMax() && <Button onClick={handleShareSummary}>Поделиться сводкой</Button>}
-            </Grid>
-            {status && (
-              <Typography.Body variant="small" className="message-banner">
-                {status}
-              </Typography.Body>
-            )}
+          <Grid>
+            <Button onClick={handleExport}>Экспорт JSON</Button>
+            <Button onClick={handleClear}>Очистить историю</Button>
+            {isInMax() && <Button onClick={handleShareSummary}>Поделиться сводкой</Button>}
+            {status && <Typography.Body variant="small">{status}</Typography.Body>}
           </Grid>
 
-          <Grid className="section-card">
-            <Typography.Label variant="small-strong">Записи</Typography.Label>
+          <Grid>
             {entries.length === 0 && (
-              <Typography.Body variant="small" className="muted-text">
-                История пуста.
-              </Typography.Body>
+              <Typography.Body variant="small">История пуста.</Typography.Body>
             )}
-            <div className="entry-list">
-              {entries.map((entry) => (
-                <Typography.Body key={entry.id} variant="small" className="entry-preview">
-                  {formatTimestamp(entry.ts)} • {entry.mood.toUpperCase()} • {entry.comment}
-                </Typography.Body>
-              ))}
-            </div>
+            {entries.map((entry) => (
+              <Typography.Body key={entry.id} variant="small">
+                {formatTimestamp(entry.ts)} • {entry.mood.toUpperCase()} • {entry.comment}
+              </Typography.Body>
+            ))}
           </Grid>
         </Grid>
       </Container>

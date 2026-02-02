@@ -10,12 +10,6 @@ type Screen = 'pulse' | 'history' | 'settings';
 const App = () => {
   const [screen, setScreen] = useState<Screen>('pulse');
 
-  const navItems: Array<{ id: Screen; label: string; description: string }> = [
-    { id: 'pulse', label: 'Pulse', description: 'Оценка настроения команды' },
-    { id: 'history', label: 'History', description: 'История и экспорт' },
-    { id: 'settings', label: 'Settings', description: 'Доступы и проверка' },
-  ];
-
   const handleBack = useCallback(() => {
     setScreen('pulse');
   }, []);
@@ -47,32 +41,20 @@ const App = () => {
   }, [handleBack, screen]);
 
   return (
-    <Panel className="app-shell">
-      <Container className="app-header">
-        <Grid className="header-stack">
+    <Panel>
+      <Container>
+        <Grid>
           <Typography.Title variant="large-strong">Pulse</Typography.Title>
-          <Typography.Body variant="small" className="muted-text">
-            Быстрый снимок состояния команды и удобный журнал изменений.
-          </Typography.Body>
-          <Grid className="app-nav">
-            {navItems.map((item) => (
-              <Button
-                key={item.id}
-                onClick={() => setScreen(item.id)}
-                className={screen === item.id ? 'tab-button is-active' : 'tab-button'}
-              >
-                <span className="tab-label">{item.label}</span>
-                <span className="tab-description">{item.description}</span>
-              </Button>
-            ))}
+          <Grid>
+            <Button onClick={() => setScreen('pulse')}>Pulse</Button>
+            <Button onClick={() => setScreen('history')}>History</Button>
+            <Button onClick={() => setScreen('settings')}>Settings</Button>
           </Grid>
         </Grid>
       </Container>
-      <Container className="app-content">
-        {screen === 'pulse' && <PulseScreen />}
-        {screen === 'history' && <HistoryScreen />}
-        {screen === 'settings' && <SettingsScreen />}
-      </Container>
+      {screen === 'pulse' && <PulseScreen />}
+      {screen === 'history' && <HistoryScreen />}
+      {screen === 'settings' && <SettingsScreen />}
     </Panel>
   );
 };

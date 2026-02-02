@@ -48,7 +48,7 @@ declare global {
     platform: string;
     version: string;
     initData?: string;
-    initDataUnsafe: MaxWebAppInitDataUnsafe;
+    initDataUnsafe?: MaxWebAppInitDataUnsafe;
     enableClosingConfirmation: () => void;
     disableClosingConfirmation: () => void;
     HapticFeedback: MaxWebAppHapticFeedback;

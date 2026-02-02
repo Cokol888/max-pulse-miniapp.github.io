@@ -22,7 +22,8 @@ export const isInMax = (): boolean => {
   return webApp.isMock !== true;
 };
 
-export const getStartParam = (): string | undefined => getWebApp()?.initDataUnsafe.start_param;
+export const getStartParam = (): string | undefined =>
+  getWebApp()?.initDataUnsafe?.start_param;
 
 export const hapticSelect = (): void => {
   const webApp = getWebApp();
@@ -63,6 +64,9 @@ export const openModeLink = (modePayload: string): void => {
   window.history.replaceState({}, '', url);
 
   if (webApp?.isMock) {
+    if (!webApp.initDataUnsafe) {
+      webApp.initDataUnsafe = {};
+    }
     webApp.initDataUnsafe.start_param = modePayload;
   }
 
