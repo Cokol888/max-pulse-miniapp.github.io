@@ -3,7 +3,7 @@
 [![CI](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml)
 
-Мини-апп «Pulse / Пульс команды» для мессенджера MAX. Каркас без бэкенда: Vite + React 18 + TypeScript + локальный сервер валидации initData (опционально) и компаньон-бот для демо.
+Мини-апп «Pulse / Пульс команды» для мессенджера MAX. Демонстрационный проект, сделанный в рамках воркшопа для показа возможностей разработки подобных решений для MAX с помощью ИИ‑инструментов. Каркас без бэкенда: Vite + React 18 + TypeScript + локальный сервер валидации initData (опционально) и компаньон-бот для демо.
 
 ## Локальный запуск
 
