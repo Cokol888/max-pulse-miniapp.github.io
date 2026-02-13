@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages.yml)
+[![GitHub Pages (branch)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages-branch.yml/badge.svg)](https://github.com/<owner>/max-pulse-miniapp.github.io/actions/workflows/pages-branch.yml)
 
 Мини-апп «Pulse / Пульс команды» для мессенджера MAX. Демонстрационный проект, сделанный в рамках воркшопа для показа возможностей разработки подобных решений для MAX с помощью ИИ‑инструментов. Каркас без бэкенда: Vite + React 18 + TypeScript + локальный сервер валидации initData (опционально) и компаньон-бот для демо.
 
@@ -61,6 +62,10 @@ npm run dev
 
 ### GitHub Pages
 
+Есть два рабочих варианта публикации:
+
+#### Вариант 1 (рекомендуется): GitHub Actions + artifact
+
 1. Включите Pages в настройках репозитория (Settings → Pages → Build and deployment → GitHub Actions).
 2. Запушьте в ветку `main` — workflow `pages.yml` соберёт `dist/` и опубликует его.
 3. Итоговый URL будет вида:
@@ -70,6 +75,14 @@ https://<owner>.github.io/max-pulse-miniapp.github.io/
 ```
 
 > В `vite.config.ts` автоматически используется base path `/max-pulse-miniapp.github.io/` при `GITHUB_PAGES=true`.
+
+#### Вариант 2: отдельная ветка `pages` (как советовали коллеги)
+
+1. В настройках GitHub выберите Settings → Pages → Build and deployment → **Deploy from a branch**.
+2. Укажите ветку `pages` и папку `/ (root)`.
+3. Запушьте в `main` — workflow `pages-branch.yml` соберёт фронт и перезапишет ветку `pages` содержимым `dist/`.
+
+> Это автоматизированная версия ручного процесса «собрать build и положить распакованный dist в отдельную ветку».
 
 ### Vercel (рекомендуется для продакшена)
 
